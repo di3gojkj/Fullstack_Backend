@@ -78,6 +78,9 @@ public class LibroRepository {
         if(idPosicion > 0){
             listaLibros.remove(idPosicion);
         }
-    }
+    }    //Si queremos eliminar por id, borramos el codigo anterior y dejamos este sin comentarios
+        /*
+        listaLibros.removeIf(x -> x.getId() == id);
+        */
 
 }
