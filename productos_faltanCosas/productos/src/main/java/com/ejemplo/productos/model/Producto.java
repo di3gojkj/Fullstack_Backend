@@ -14,8 +14,11 @@ import lombok.NoArgsConstructor;
 //crea constructor con todos los parametros
 @AllArgsConstructor
 public class Producto {
+
+    @NotNull(message = "El id del producto no puede ser nulo")
+    @Positive(message = "El id del producto debe ser mayor a cero")
     private int id;
-    //no puede estar vacio
+
     @NotBlank(message = "El nombre del producto no puede estar vacío")
     private String nombre;
 
