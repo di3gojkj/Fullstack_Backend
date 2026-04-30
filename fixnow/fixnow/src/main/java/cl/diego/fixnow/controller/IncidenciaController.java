@@ -7,5 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/incidencias")
 
 public class IncidenciaController {
+    
 
 }

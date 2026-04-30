@@ -15,6 +15,8 @@ public class IncidenciaRepository {
     
     private int idContador = 1;
 
+    public List<Incidencia> getAllIncidencia;
+
     public IncidenciaRepository(){
         //Metodo para Agregar una incidencia a la lista de manera personalizada o manual.
         incidencias.add(new Incidencia(idContador++, "No puedo iniciar sesion", 2, "Diego", "2024-06-01"));
@@ -63,8 +65,11 @@ public class IncidenciaRepository {
                 inc.setNivelPrioridad(incidencia.getNivelPrioridad());
                 inc.setNombreUsuario(incidencia.getNombreUsuario());
                 inc.setFechaRegistro(incidencia.getFechaRegistro());
+
+                return true;
             }
-            return true;
+            
+            
         
         }return false;
     }
@@ -72,7 +77,7 @@ public class IncidenciaRepository {
     //Metodo para listar o mostar las incidencias por nombre de usuario.
     public Incidencia buscarPorNombre(String nombreUsuario){
         for(Incidencia inc3: incidencias){
-            if(inc3.getNombreUsuario() == nombreUsuario){
+            if(inc3.getNombreUsuario().equalsIgnoreCase(nombreUsuario)){
                 return inc3;
             }
         }return null;
