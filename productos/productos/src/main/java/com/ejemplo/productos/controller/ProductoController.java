@@ -113,7 +113,7 @@ public class ProductoController {
     public ResponseEntity<?> modificarProducto(@PathVariable int id,
             @Valid @RequestBody Producto prod, BindingResult result) {
         try {
-            //varificar si hay errores de validación
+            //verificar si hay errores de validación
             if (result.hasErrors()) {
                 // capturar y manipular el error para retornarlo
                 Map<String, String> errores = new HashMap<>();
