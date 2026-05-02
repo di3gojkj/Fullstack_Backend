@@ -16,17 +16,17 @@ public class IncidenciaService {
     private IncidenciaRepository incidenciaRepository;
 
     //Obtener todas las incidencias
-    public List<Incidencia> listar(){
+    public List<Incidencia> listar(){//Lista en el controlador
         return incidenciaRepository.listarIncidencia();
     }
 
     //Agregar una nueva incidencia
-    public Incidencia agregar(Incidencia inc){
+    public Incidencia agregar(Incidencia inc){//Lista en el controlador
         return incidenciaRepository.agregarIncidencia(inc);
     }
 
     //Buscar una incidencia especifica por el Id de usuario
-    public Incidencia buscarPorId(int idUsuario){
+    public Incidencia buscarPorId(int idUsuario){//Lista en el controlador
         return incidenciaRepository.listarIncidenciaPorId(idUsuario);
     }
 
@@ -36,7 +36,7 @@ public class IncidenciaService {
     }
 
     //Modificar una incidencia existente
-     public boolean modificar(int idUsuario, Incidencia incidencia){
+     public Incidencia modificar(int idUsuario, Incidencia incidencia){
         return incidenciaRepository.modificarIncidencia(idUsuario, incidencia);
      }
 
