@@ -1,8 +1,9 @@
 package com.diego.especies.exception;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,9 +19,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errores);
     }
 
+    //@ExceptionHandler(RuntimeException.class)
+    //public ResponseEntity<Map<String, String>> handleRuntime(RuntimeException ex) {
+        //return ResponseEntity.badRequest().body(Collections.singletonMap("error", ex.getMessage()));//corrige los errores en tiempo real con el singletonMap
+    //}
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntime(RuntimeException ex) {
-        return ResponseEntity.badRequest().body(Collections.singletonMap("error", ex.getMessage()));
+        Map<String, String> errores = new HashMap<>();
+        errores.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errores);
     }
 
 }
