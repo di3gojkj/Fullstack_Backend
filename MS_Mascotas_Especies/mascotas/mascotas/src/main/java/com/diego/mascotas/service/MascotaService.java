@@ -1,9 +1,14 @@
 package com.diego.mascotas.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import com.diego.mascotas.dto.MascotaRequestDTO;
 import com.diego.mascotas.dto.MascotaResponseDTO;
 import com.diego.mascotas.model.Mascota;
 import com.diego.mascotas.repository.MascotaRepository;
@@ -15,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class MascotaService {
     private final MascotaRepository mascotaRepository;
     //Inyectar la configuracion de webClient para podernos comunicar con otro microservicio
-    private final WebClient webClient;
+    private final WebClient webClient;//webflux libreria
 
     //Mapeo de entidad a DTO
     private MascotaResponseDTO mapToDTO(Mascota m){
@@ -37,5 +42,23 @@ public class MascotaService {
         } 
             
         }
+
+    //CRUD
+    public List<MascotaResponseDTO> obtenerMascotas(){
+        return mascotaRepository.findAll().stream()
+                .map(this::mapToDTO).collect(Collectors.toList());
     }
 
+    public Optional<MascotaResponseDTO> obtenerPorId(Long id){
+        return mascotaRepository.findById(id).map(this::mapToDTO);
+    }
+
+    public MascotaResponseDTO guardarMascota(MascotaRequestDTO mascota){
+        //Llamo a la funcion que se comuica con el otro microservicio para saber si esta especie existe
+        validarEspecie(mascota.getIdEspecie());
+        //si no genera excepciones es que existe la especie y puedo continuar
+        Mascota masc = new Mascota(null, mascota.getNombre(), mascota.getEdad(), mascota.getRaza(), mascota.getIdEspecie());
+        return mapToDTO(mascotaRepository.save(masc));
+    }
+
+}
